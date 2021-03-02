@@ -27,8 +27,7 @@ public class PricingController {
         try {
             return PricingService.getPrice(vehicleId);
         } catch (PriceException ex) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Price Not Found", ex);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Price Not Found", ex);
         }
 
     }
