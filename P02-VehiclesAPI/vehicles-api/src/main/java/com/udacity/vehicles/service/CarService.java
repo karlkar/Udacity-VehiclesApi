@@ -5,8 +5,6 @@ import com.udacity.vehicles.client.prices.PriceClient;
 import com.udacity.vehicles.domain.Location;
 import com.udacity.vehicles.domain.car.Car;
 import com.udacity.vehicles.domain.car.CarRepository;
-import com.udacity.vehicles.domain.manufacturer.Manufacturer;
-import com.udacity.vehicles.domain.manufacturer.ManufacturerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,18 +19,15 @@ import java.util.Optional;
 public class CarService {
 
     private final CarRepository repository;
-    private final ManufacturerRepository manufacturerRepository;
     private final MapsClient mapsClient;
     private final PriceClient priceClient;
 
     public CarService(
             CarRepository repository,
-            ManufacturerRepository manufacturerRepository,
             MapsClient mapsClient,
             PriceClient priceClient
     ) {
         this.repository = repository;
-        this.manufacturerRepository = manufacturerRepository;
         this.mapsClient = mapsClient;
         this.priceClient = priceClient;
     }
@@ -75,11 +70,6 @@ public class CarService {
      * @return the new/updated car is stored in the repository
      */
     public Car save(Car car) {
-        Manufacturer manufacturer = car.getDetails().getManufacturer();
-        if (manufacturer != null) {
-            manufacturerRepository.save(manufacturer);
-        }
-
         if (car.getId() != null) {
             return repository.findById(car.getId())
                     .map(carToBeUpdated -> {
