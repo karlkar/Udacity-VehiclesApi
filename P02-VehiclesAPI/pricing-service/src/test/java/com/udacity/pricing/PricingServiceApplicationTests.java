@@ -32,7 +32,7 @@ public class PricingServiceApplicationTests {
     public void getsPriceDetails() {
         final int vehicleId = 1;
         ResponseEntity<Price> responseEntity = restTemplate.getForEntity(
-                "http://localhost:" + port + "/services/price?vehicleId=" + vehicleId,
+                "http://localhost:" + port + "/prices/" + vehicleId,
                 Price.class
         );
 
